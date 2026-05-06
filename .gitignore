@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.pyo
+store_bills.xlsx
+static/bills/
+static/qr_codes/
+audit.log
+.env

@@ -1,0 +1,208 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║  UNIVERSAL BILLING SYSTEM v4.0 — FILES & QUICK REFERENCE                 ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📦 MAIN PACKAGE
+═══════════════════════════════════════════════════════════════════════════════
+📄 universal_billing_secure_v2.zip (46 KB)
+   ✅ Everything needed to run the app
+   ✅ Extract and start in 5 minutes
+
+
+🚀 GETTING STARTED (READ THESE FIRST)
+═══════════════════════════════════════════════════════════════════════════════
+📖 QUICK_START.md                     ← START HERE (5-min setup)
+📖 IMPLEMENTATION_SUMMARY.md          ← Complete overview
+📖 FILES_OVERVIEW.txt                 ← This file
+
+
+👥 MULTI-USER SETUP (TWO LAPTOPS)
+═══════════════════════════════════════════════════════════════════════════════
+📖 MULTI_USER_SETUP.md                ← Connect admin + staff laptops
+   • Same WiFi setup (local network)
+   • Cloud deployment (Render.com)
+   • Dedicated server option
+
+
+🌐 NETWORK CONNECTIVITY OPTIONS
+═══════════════════════════════════════════════════════════════════════════════
+📖 NETWORK_SETUP.md                   ← Detailed network guides
+   • Option A: Local WiFi (RECOMMENDED) — Free, instant, offline
+   • Option B: Cloud (Render.com) — Remote access, free tier
+   • Option C: Dedicated Server — 24/7 always-on
+
+
+⚡ REAL-TIME SYNC (OPTIONAL)
+═══════════════════════════════════════════════════════════════════════════════
+📖 REAL_TIME_SYNC.md                  ← Add WebSocket for instant notifications
+   • When Admin creates bill → Staff sees pop-up instantly
+   • Without WebSocket → Auto-refresh every 5 seconds (always works)
+
+
+📁 INSIDE THE ZIP
+═══════════════════════════════════════════════════════════════════════════════
+billing_secure/
+│
+├─ 🐍 PYTHON BACKEND
+│  ├─ app.py                  (1060 lines) Secure Flask server
+│  ├─ database.py             (340 lines)  Excel database
+│  ├─ requirements.txt        Python packages to install
+│  ├─ run_app.py              Cross-platform launcher
+│  └─ run_windows.bat         Double-click to run (Windows)
+│
+├─ 🎨 WEB INTERFACE
+│  ├─ templates/
+│  │  ├─ login.html           Beautiful secure login page
+│  │  └─ index.html           Main app (role-aware)
+│  │
+│  └─ static/
+│     ├─ css/style.css        All styles + 6 themes + mobile responsive
+│     ├─ js/script.js         Complete app logic + session timer
+│     ├─ bills/               Auto-created folder (PDF bills)
+│     └─ qr_codes/            Auto-created folder (QR codes)
+│
+├─ 📚 DOCUMENTATION
+│  ├─ README.md               Full feature reference
+│  ├─ QUICK_START.md          5-minute setup
+│  ├─ MULTI_USER_SETUP.md     Connect 2 laptops
+│  ├─ NETWORK_SETUP.md        Network options
+│  └─ REAL_TIME_SYNC.md       WebSocket setup
+│
+└─ 🔧 CONFIGURATION
+   ├─ render.yaml             Render.com deployment config
+   ├─ .python-version         Python 3.11.9
+   └─ .gitignore              GitHub ignore patterns
+
+
+🔐 SECURITY FEATURES
+═══════════════════════════════════════════════════════════════════════════════
+✅ Hashed passwords          PBKDF2-SHA256
+✅ CSRF tokens               Every POST request
+✅ Session timeout           10 min auto-expire + countdown
+✅ Rate limiting             5 fails = 15 min lockout
+✅ Security headers          X-Frame, CSP, XSS Protection
+✅ Audit log                 Every action recorded
+✅ Input validation          HTML escaped + length limited
+✅ Path traversal prevention os.path.basename() on files
+✅ HttpOnly cookies          JavaScript can't access
+✅ Session fixation prevent  Regenerated on login
+✅ Role enforcement          Server-side checks
+
+
+👥 ROLES & PERMISSIONS
+═══════════════════════════════════════════════════════════════════════════════
+ADMIN (admin / Admin@1234)
+  ✅ Create bills              ✅ View profits
+  ✅ View history              ✅ Export Excel
+  ✅ Change settings           ✅ View audit log
+  ✅ Erase bills               ✅ Factory reset
+  ✅ Change password
+
+STAFF (staff / Staff@1234)
+  ✅ Create bills              ❌ View profits
+  ✅ View history              ❌ Export Excel
+  ❌ Change settings           ❌ View audit log
+  ❌ Erase bills               ❌ Factory reset
+  ✅ Change password
+
+
+🖥️ WINDOWS DESKTOP APP OPTIONS
+═══════════════════════════════════════════════════════════════════════════════
+Method 1: Browser (Simplest)
+  → Double-click run_windows.bat
+  → Opens in browser automatically
+
+Method 2: Single .exe File
+  → pip install pyinstaller
+  → pyinstaller --onefile --noconsole --name "BillingSystem" run_app.py
+  → Creates dist/BillingSystem.exe
+
+Method 3: Electron (True Desktop App)
+  → See README.md for full Electron setup
+  → Proper Windows window with no browser bars
+
+
+📊 DATA STORAGE
+═══════════════════════════════════════════════════════════════════════════════
+store_bills.xlsx (Excel database)
+  • Bills sheet           All customer bills
+  • ProfitLoss sheet      Calculated profits
+  • Settings sheet        Store info + currency
+  • Customer List         Auto-generated IDs
+
+audit.log (Security log)
+  • Login/logout events
+  • Bill generation
+  • Admin actions
+  • IP addresses
+
+
+⏱️ SESSION MANAGEMENT
+═══════════════════════════════════════════════════════════════════════════════
+• Auto-expires after 10 minutes of inactivity
+• Countdown timer shown in top bar
+• Click ↻ button to manually reset timer
+• Refresh page (F5) doesn't reset timer
+• Logout clears session immediately
+
+
+🔄 HOW TWO LAPTOPS SYNC
+═══════════════════════════════════════════════════════════════════════════════
+Admin creates bill
+    ↓
+Flask saves to store_bills.xlsx
+    ↓
+WebSocket sends notification to all connected browsers (optional)
+    ↓
+Staff's browser pops toast notification
+    ↓
+Bill History auto-refreshes
+    ↓
+Both see the same bill instantly ✅
+
+
+📋 QUICK START STEPS
+═══════════════════════════════════════════════════════════════════════════════
+1️⃣  Unzip the file
+2️⃣  Open terminal/Command Prompt
+3️⃣  cd billing_secure
+4️⃣  pip install -r requirements.txt
+5️⃣  python run_app.py
+6️⃣  Browser opens at http://localhost:5004
+7️⃣  Login: admin / Admin@1234
+8️⃣  Change passwords immediately!
+9️⃣  For 2 laptops: Follow MULTI_USER_SETUP.md
+
+
+⚠️  DEFAULT CREDENTIALS (CHANGE IMMEDIATELY)
+═══════════════════════════════════════════════════════════════════════════════
+ADMIN:    admin     /  Admin@1234
+STAFF:    staff     /  Staff@1234
+
+⚠️  Change in Settings → Change Password
+
+
+💡 RECOMMENDED SETUP FOR YOUR CASE
+═══════════════════════════════════════════════════════════════════════════════
+Admin + Staff on same WiFi (same office/building)
+  ✅ Use: Local Network (Option A in NETWORK_SETUP.md)
+  ✅ Fast, instant sync, free, offline-capable
+
+Admin + Staff in different cities
+  ✅ Use: Cloud (Option B in NETWORK_SETUP.md)
+  ✅ Deploy to Render.com, both access cloud URL
+
+Needs 24/7 uptime
+  ✅ Use: Dedicated Server (Option C in NETWORK_SETUP.md)
+  ✅ Always-on machine, can grow to many users
+
+
+🎯 SUPPORT & NEXT STEPS
+═══════════════════════════════════════════════════════════════════════════════
+1. Read QUICK_START.md (5 min)
+2. Run python run_app.py
+3. If 2 laptops: Read MULTI_USER_SETUP.md
+4. If remote: Read NETWORK_SETUP.md
+5. If WebSocket: Read REAL_TIME_SYNC.md
+
+Everything is documented. You have all you need! 🚀

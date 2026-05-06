@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login · Billing System</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1A252F 0%,#2C3E50 50%,#1A252F 100%);padding:20px;}
+.login-card{background:white;border-radius:20px;padding:40px 36px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.brand{text-align:center;margin-bottom:32px;}
+.brand-icon{width:64px;height:64px;background:linear-gradient(135deg,#FF4757,#FF6B6B);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;color:white;box-shadow:0 8px 24px rgba(255,71,87,0.35);}
+.brand h1{font-size:22px;font-weight:800;color:#2C3E50;margin-bottom:4px;}
+.brand p{font-size:13px;color:#95A5A6;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:#34495E;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.input-wrap{position:relative;}
+.input-wrap i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#95A5A6;font-size:15px;}
+.form-group input{width:100%;padding:12px 12px 12px 40px;border:1.5px solid #E8ECF0;border-radius:10px;font-size:15px;font-family:inherit;color:#2C3E50;background:#FAFBFC;transition:border-color .2s,box-shadow .2s;}
+.form-group input:focus{border-color:#FF4757;outline:none;box-shadow:0 0 0 3px rgba(255,71,87,.12);background:white;}
+.toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#95A5A6;font-size:15px;padding:4px;}
+.toggle-pw:hover{color:#FF4757;}
+.role-tabs{display:flex;gap:8px;margin-bottom:22px;}
+.role-tab{flex:1;padding:10px;border:2px solid #E8ECF0;border-radius:10px;background:white;cursor:pointer;font-size:13px;font-weight:600;color:#7F8C8D;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .2s;}
+.role-tab.active{border-color:#FF4757;background:#FFF5F5;color:#FF4757;}
+.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,#FF4757,#FF6B6B);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:box-shadow .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;}
+.btn-login:hover{box-shadow:0 6px 18px rgba(255,71,87,.4);}
+.btn-login:active{transform:scale(.97);}
+.btn-login:disabled{opacity:.6;cursor:not-allowed;}
+.error-msg{background:#FDECEA;color:#C0392B;border:1px solid #F5B7B1;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:16px;display:none;align-items:center;gap:8px;}
+.error-msg.show{display:flex;}
+.hint{text-align:center;font-size:11px;color:#BDC3C7;margin-top:20px;line-height:1.6;}
+.hint strong{color:#95A5A6;}
+.spinner{width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="login-card">
+  <div class="brand">
+    <div class="brand-icon"><i class="fas fa-store"></i></div>
+    <h1>Billing System</h1>
+    <p>Sign in to your account</p>
+  </div>
+
+  <div class="role-tabs">
+    <button class="role-tab active" id="tabAdmin" onclick="setRole('admin')">
+      <i class="fas fa-user-shield"></i> Admin
+    </button>
+    <button class="role-tab" id="tabStaff" onclick="setRole('staff')">
+      <i class="fas fa-user"></i> Staff
+    </button>
+  </div>
+
+  <div class="error-msg" id="errorMsg">
+    <i class="fas fa-exclamation-circle"></i>
+    <span id="errorText"></span>
+  </div>
+
+  <div class="form-group">
+    <label>Username</label>
+    <div class="input-wrap">
+      <i class="fas fa-user"></i>
+      <input type="text" id="username" placeholder="Enter username" autocomplete="username">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <div class="input-wrap">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+      <button class="toggle-pw" onclick="togglePw()" type="button" tabindex="-1">
+        <i class="fas fa-eye" id="eyeIcon"></i>
+      </button>
+    </div>
+  </div>
+
+  <button class="btn-login" id="loginBtn" onclick="doLogin()">
+    <div class="spinner" id="spinner"></div>
+    <i class="fas fa-sign-in-alt" id="loginIcon"></i>
+    <span id="loginText">Sign In</span>
+  </button>
+
+  <p class="hint">
+    Default: <strong>admin / Admin@1234</strong> &nbsp;|&nbsp; <strong>staff / Staff@1234</strong><br>
+    Please change passwords after first login.
+  </p>
+</div>
+
+<script>
+const CSRF = "{{ csrf_token }}";
+let selectedRole = 'admin';
+
+function setRole(role) {
+  selectedRole = role;
+  document.getElementById('tabAdmin').classList.toggle('active', role === 'admin');
+  document.getElementById('tabStaff').classList.toggle('active', role === 'staff');
+  document.getElementById('username').value = role;
+  document.getElementById('password').focus();
+}
+
+function togglePw() {
+  const inp = document.getElementById('password');
+  const ico = document.getElementById('eyeIcon');
+  if (inp.type === 'password') { inp.type = 'text'; ico.className = 'fas fa-eye-slash'; }
+  else { inp.type = 'password'; ico.className = 'fas fa-eye'; }
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  document.getElementById('errorText').textContent = msg;
+  el.classList.add('show');
+}
+function hideError() { document.getElementById('errorMsg').classList.remove('show'); }
+
+function setLoading(on) {
+  document.getElementById('loginBtn').disabled = on;
+  document.getElementById('spinner').style.display = on ? 'block' : 'none';
+  document.getElementById('loginIcon').style.display = on ? 'none' : 'inline-block';
+  document.getElementById('loginText').textContent = on ? 'Signing in…' : 'Sign In';
+}
+
+async function doLogin() {
+  hideError();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  if (!username || !password) { showError('Please enter username and password'); return; }
+  setLoading(true);
+  try {
+    const res  = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password, csrf_token: CSRF })
+    });
+    const data = await res.json();
+    if (data.success) { window.location.href = '/'; }
+    else { showError(data.error || 'Login failed'); setLoading(false); }
+  } catch(e) { showError('Network error. Please try again.'); setLoading(false); }
+}
+
+// Enter key
+document.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+// Pre-fill admin
+setRole('admin');
+</script>
+</body>
+</html>
