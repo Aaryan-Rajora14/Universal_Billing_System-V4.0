@@ -1,10 +1,10 @@
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                                                                            ║
-║      UNIVERSAL BILLING SYSTEM v4.0 — SECURE MULTI-USER EDITION            ║
+║      UNIVERSAL BILLING SYSTEM v4.0 — SECURE MULTI-USER EDITION             ║
 ║                                                                            ║
-║              Admin + Staff Login  |  Role-Based Access                    ║
-║              Real-Time Sync  |  Session Timer  |  Audit Log               ║
-║              Windows/Mac/Linux  |  Cloud-Ready                            ║
+║              Admin + Staff Login  |  Role-Based Access                     ║
+║              Real-Time Sync  |  Session Timer  |  Audit Log                ║
+║              Windows/Mac/Linux  |  Cloud-Ready                             ║
 ║                                                                            ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
