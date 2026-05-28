@@ -1,5 +1,5 @@
 ╔════════════════════════════════════════════════════════════════════════════╗
-║  UNIVERSAL BILLING SYSTEM v4.0 — FILES & QUICK REFERENCE                 ║
+║  UNIVERSAL BILLING SYSTEM v4.0 — FILES & QUICK REFERENCE                   ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 📦 MAIN PACKAGE
